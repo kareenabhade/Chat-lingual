@@ -1,8 +1,11 @@
 import React from 'react'
+import ResponsiveAppBar from '../Components/ResponsiveAppBar'
 
 function Chat() {
   return (
-    <div>Chat Chat Chat!</div>
+    <>
+    <ResponsiveAppBar />
+    </>
   )
 }
 
