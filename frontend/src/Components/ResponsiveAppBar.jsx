@@ -12,14 +12,19 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
+import { useNavigate } from 'react-router-dom';
 
 
-const pages = ['Contacts', 'Messages'];
+
+const pages = ['Login', 'Register'];
 const settings = ['Profile', 'Account', 'Logout'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const navigate = useNavigate();
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,6 +40,20 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const navigateToPage = (page) => {
+    switch (page) {
+      case 'Login':
+        navigate('/login');
+        break;
+      case 'Register':
+        navigate('/register');
+        break;
+      // Add more cases as needed
+      default:
+        break;
+    }
+   };
 
   return (
     <AppBar position="static">
@@ -88,9 +107,12 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
+                <MenuItem key={page} onClick={()=>{
+                  handleCloseNavMenu();
+                  navigateToPage(page);
+                }}>
+                <Typography textAlign="center">{page}</Typography>
+                </MenuItem>    
               ))}
             </Menu>
           </Box>
@@ -116,7 +138,10 @@ function ResponsiveAppBar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={()=>{
+                  handleCloseNavMenu();
+                  navigateToPage(page);
+                }}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}
