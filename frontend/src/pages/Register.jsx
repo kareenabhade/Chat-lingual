@@ -1,29 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useContext} from 'react';
 import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
-// import {Box} from '@mui/material'
 import Typography from '@mui/material/Typography';
 import { TextField, Button, Select, MenuItem, FormControl, InputLabel, Container } from '@mui/material';
+import { AuthContext } from '../Context/AuthContext';
 
 const Register = () => {
+  const {setRegisterInfo} = useContext(AuthContext);
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
   const [language, setLanguage] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // handle form submission logic
+    setRegisterInfo({
+      name:name,
+      email:email,
+      password:password,
+      language:language,
+    })
+    
+
   };
 
   return (
   <>
     <Container maxWidth='xs'
-    style={{backgroundColor:'#1976d2',
+    sx={{backgroundColor:'#1976d2',
             height:'70px', 
             display:'flex', 
             justifyContent:'center', 
             alignItems:'center',
             color:'white',
+            marginTop:'100px',
             }}>
       <ChatRoundedIcon sx={{mr:2}}/>
       <Typography
@@ -59,9 +70,10 @@ const Register = () => {
           margin="normal"
         />
         <TextField
-          label="Phone Number"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
+          label="Password"
+          type='password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           fullWidth
           margin="normal"
         />
@@ -75,7 +87,7 @@ const Register = () => {
     label="Language"
     onChange={(e) => setLanguage(e.target.value)}
   >
-           <MenuItem value="English">English</MenuItem>
+            <MenuItem value="English">English</MenuItem>
             <MenuItem value="Spanish">Spanish</MenuItem>
             <MenuItem value="French">French</MenuItem>
   </Select>
