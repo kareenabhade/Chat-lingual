@@ -7,16 +7,17 @@ export const HomePage = () => {
   
   return (<>
     <Container maxWidth='xs'
-    sx={{backgroundColor:'white',
+    sx={{backgroundColor:'#40A2E3', p:3,
             height:'60px', 
             display:'flex', 
             justifyContent:'center', 
             alignItems:'center',
             color:'black',
-            borderRadius:"2px",
+            borderTopLeftRadius:"8px",
+            borderTopRightRadius:"8px",
             marginTop:"50px"
             }}>
-      <ChatRoundedIcon sx={{mr:1, color:"#3652AD"}}/>
+      <ChatRoundedIcon sx={{mr:1, color:"black"}}/>
       <Typography
             variant="h6"
             sx={{

@@ -3,7 +3,7 @@ body{
     font-family: 'Nunito', sans-serif;
     margin:0px;
     padding: 0px;
-    background-image: linear-gradient(#40A2E3, #3652AD);
+    background-image: linear-gradient(#B4D4FF, #40A2D8,#525CEB);
     /* background-image: url("./background chat.png");
     background-size: cover; */
 }
