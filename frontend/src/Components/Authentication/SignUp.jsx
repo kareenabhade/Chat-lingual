@@ -116,6 +116,7 @@ const SignUp = () => {
           helperText="Please select your language"
           variant="filled"
           fullWidth
+          required
           size='small'
           sx={{m:2}}
           InputLabelProps={{style: {fontSize:"small"}}}    

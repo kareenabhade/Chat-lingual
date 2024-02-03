@@ -17,14 +17,14 @@ export const HomePage = () => {
             borderTopRightRadius:"8px",
             marginTop:"50px"
             }}>
-      <ChatRoundedIcon sx={{mr:1, color:"black"}}/>
+      <ChatRoundedIcon sx={{mr:1, mt:1, color:"#3D3B40"}}/>
       <Typography
             variant="h6"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'flex' },
               fontFamily: 'Nunito',
-              fontWeight: 700,
+              fontWeight: "bolder",
               color: '#3D3B40',
               textDecoration: 'none',
             }}

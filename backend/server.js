@@ -1,11 +1,19 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const users = require("./chatData.json")
 const app = express();
 
+
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
+
+
+mongoose.connect("mongodb://127.0.0.1:27017/ChatDB",)
+.then(()=> console.log("database connected"))
+.catch(err => console.log("error occured ", err));
+
 
 
 app.get('/',(req , res)=>{
