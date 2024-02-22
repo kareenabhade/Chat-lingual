@@ -11,8 +11,10 @@ const handleRegister = asyncHandler(async(req, res) => {
     }
     const userExists = await User.findOne({email});
     if(userExists){
-        res.status(400)
-        throw new Error("email already exist")
+        // res.status(400);
+        // throw new Error("email already exist");
+        return res.status(400).json({ message: "Email already exists" });
+
     }
     
     const newUser = await User.create({
@@ -54,4 +56,18 @@ const handleAuthUser = asyncHandler(async(req,res) => {
    }
 });
 
-module.exports = { handleRegister, handleAuthUser}
+//  /api/user?search=kareena
+const allUsers = asyncHandler(async(req,res)=>{
+    const keyword = req.query.search?{
+         $or:[
+            {name:{$regex: req.query.search, $options: 'i'}},
+            {email:{$regex: req.query.search, $options: 'i'}},
+         ],
+    }:{};
+
+    const users = await User.find(keyword).find({_id:{$ne:req.user._id}});
+    res.send(users);
+});
+
+
+module.exports = { handleRegister, handleAuthUser, allUsers}

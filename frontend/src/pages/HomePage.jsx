@@ -7,7 +7,8 @@ export const HomePage = () => {
   
   return (<>
     <Container maxWidth='xs'
-    sx={{backgroundColor:'#40A2E3', p:3,
+    sx={{   p:3,
+            backgroundImage: "linear-gradient( #525CEB,#40A2D8)",
             height:'60px', 
             display:'flex', 
             justifyContent:'center', 
@@ -17,7 +18,7 @@ export const HomePage = () => {
             borderTopRightRadius:"8px",
             marginTop:"50px"
             }}>
-      <ChatRoundedIcon sx={{mr:1, mt:1, color:"#3D3B40"}}/>
+      <ChatRoundedIcon sx={{mr:1, mt:1, color:"black"}}/>
       <Typography
             variant="h6"
             sx={{
@@ -25,7 +26,7 @@ export const HomePage = () => {
               display: { xs: 'flex', md: 'flex' },
               fontFamily: 'Nunito',
               fontWeight: "bolder",
-              color: '#3D3B40',
+              color: 'black',
               textDecoration: 'none',
             }}
           >

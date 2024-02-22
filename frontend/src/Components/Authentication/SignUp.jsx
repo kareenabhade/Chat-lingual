@@ -1,16 +1,18 @@
 import React,{useState} from 'react';
+import {useNavigate} from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import MenuItem from '@mui/material/MenuItem';
 import { languages } from './languageData';
-
+import { ToastContainer, toast } from 'react-toastify';
+import { Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { FormControl,
         InputAdornment,
         Button } from '@mui/material';
-
 
 
 
@@ -21,14 +23,211 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword,setShowPassword] =  useState(false);
   const [showConfirmPassword,setShowConfirmPassword] =  useState(false);
-  const [language, setLanguage] = useState("English");
-  const [pic,setpic] = useState();
+  const [language, setLanguage] = useState("");
+  const [pic,setPic] = useState();
+  const navigate = useNavigate();
 
-  function handleSubmit(){
 
+
+const handleSubmit = async (event) => {
+  event.preventDefault();
+
+  // Validation
+  console.log("Name:", name);
+  console.log("Email:", email);
+  console.log("Password:", password);
+  console.log("Confirm Password:", confirmPassword);
+  console.log("Language:", language);
+
+  const validateEmail = (email) => {
+    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return regex.test(String(email).toLowerCase());
+  };
+
+function validatePassword(password) {
+  const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+  if (passwordPattern.test(password)) return true;
+   return false;
+}
+
+  if (!name|| !email|| !password|| !confirmPassword|| !language) {
+    toast.warn('All fields required ❗', {
+      position: "bottom-center",
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+      autoClose:  5000,
+    });
+    return;
+  }
+  
+  if (!validateEmail(email) ) {
+      toast.warn('Incorrect email 👽', {
+      position: "bottom-center",
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+      autoClose:  5000,
+    });
+    return;
+    }
+
+  if (!validatePassword(password)) {
+      toast.warn('Password should contain - Minimum eight characters, at least one letter, one number and one special character ', {
+      position: "bottom-center",
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+      autoClose:  5000,
+    });
+    return;
+    }
+
+
+
+  if (password !== confirmPassword) {
+    toast.warn('Password does not match ❗', {
+      position: "bottom-center",
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+      autoClose:  5000,
+    });
+    return;
   }
 
-  function postDetails(pics){
+  // Submit Logic
+  let data = {
+    name,
+    email,
+    password,
+    language
+  };
+
+  if (pic) {
+  data = { ...data, pic };
+}
+
+ 
+  try {
+  const response = await fetch("/api/user", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    throw new Error(errorResponse.message || 'An error occurred');
+  }
+
+  const successData = await response.json();
+  // Handle success
+  setTimeout(()=>{
+      toast.success('Registration successful 🚀', {
+      position: "bottom-center",
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+      autoClose:  3000,
+    });
+
+    setTimeout(()=>{
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    // setEmail(""); setPassword(""); 
+    navigate("/mainpage");
+    },3000)
+
+    },50)} 
+  catch (error) {
+  // Handle error
+  console.error(`Error: ${error.message}`);
+  toast.error(`${error.message} 😠`, {
+    autoClose:  5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    transition: Bounce,
+    position: "bottom-center",
+  });
+}
+
+}
+
+
+  function postDetails(pic){
+    if(pic===undefined){
+      toast('Image Error', {
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: "Bounce",
+        position: "bottom-center",
+        });
+        return;
+   }
+
+   if(pic.type === "image/jpeg" || pic.type === "image/png"){
+    const data = new FormData();
+    data.append("file", pic);
+    data.append("upload_preset", "Chat-lingual");
+    data.append("cloud_name", "dlxdukj6m");
+    fetch("https://api.cloudinary.com/v1_1/dlxdukj6m/image/upload",{
+      method:'post',
+      body:data,
+    }).then((res)=>res.json())
+      .then(data=>{
+          console.log(data)
+          setPic(data.url.toString());
+      })
+      .catch((err)=>{
+        console.log(err);
+      });
+   }
+   else{
+    toast('please select an image', {
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: "Bounce",
+        position: "bottom-center",
+        });
+        return;
+   }
 
   }
 
@@ -112,7 +311,9 @@ const SignUp = () => {
           id="language"
           select
           label="Select"
+          value={language}
           defaultValue="English"
+          onChange={(e)=>setLanguage(e.target.value)}
           helperText="Please select your language"
           variant="filled"
           fullWidth
@@ -122,24 +323,34 @@ const SignUp = () => {
           InputLabelProps={{style: {fontSize:"small"}}}    
         >
           {languages.map((language,index) => (
-            <MenuItem key={index} value={language.language_name} onChange={(e)=>setLanguage(e.target.value)}>
+            <MenuItem key={index} value={language.language_name} >
               {language.language_name} 
             </MenuItem>
           ))}
         </TextField>
            
       
-           <Button variant="outlined" color="primary" component="label" size='small' sx={{width:"50%",marginTop:2, fontSize:"small"}}>
-            <DriveFolderUploadIcon fontSize='small' sx={{mr:1}}/>
+           <Button variant="outlined" color="primary" component="label" size='small' sx={{width:"50%",marginTop:2, fontSize:"small"}}
+                        startIcon={<CloudUploadIcon />} >
              Upload Image
              <input type="file" accept="image/*" onChange={(e)=>postDetails(e.target.files[0])} hidden />
             </Button>
         
      
 
-        <Button size='medium' variant="contained" color="primary" type="submit" sx={{m:4, fontSize:'small'}}>
-          Sign Up
+       <Button
+            variant="contained"
+            size='medium'
+            color="primary"
+            type="submit"
+            sx={{ m:  4, fontSize: 'small' }}
+            onClick={handleSubmit}
+        > 
+            Sign Up
         </Button>
+
+        <ToastContainer />
+
         </FormControl>
       </Stack>
   )

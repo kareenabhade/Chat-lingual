@@ -1,6 +1,6 @@
 export const languages = [
     {
-        "language_name": "Haitian Creole"
+        "language_name": "English"
     },
     {
         "language_name": "Malayalam"
