@@ -158,7 +158,7 @@ function validatePassword(password) {
     setTimeout(()=>{
       localStorage.setItem("userInfo", JSON.stringify(data));
     // setEmail(""); setPassword(""); 
-    navigate("/mainpage");
+    navigate("/chats");
     },3000)
 
     },50)} 

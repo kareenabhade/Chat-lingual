@@ -116,7 +116,7 @@ function validatePassword(password) {
 
     setTimeout(()=>{
       localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate("/mainpage");
+      navigate("/chats");
     },3000)
 
     },50)
