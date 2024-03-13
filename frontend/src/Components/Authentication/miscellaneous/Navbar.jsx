@@ -1,8 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { FcSearch } from "react-icons/fc";
 import BasicMenu from './MenuButtons/BasicMenu';
 import SideMenu from './MenuButtons/SideMenu';
 import ProfileMenu from './MenuButtons/ProfileMenu';
@@ -24,7 +22,6 @@ export default function Navbar() {
         justifyContent:"space-between"
     }}>
        
-
        <SideMenu />
 
         <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>

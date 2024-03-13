@@ -74,6 +74,8 @@ const MyChats = ({fetchAgain}) => {
         <Stack  >
           { loading?<CircularProgress sx={{ml:"40%", mt:"20%"}} />:
             chats.map((chat)=>{
+                      const secondUser = chat.users[1];
+
               return <Box
               onClick={()=>setSelectedChat(chat)}
               key={chat._id}
@@ -96,7 +98,7 @@ const MyChats = ({fetchAgain}) => {
                   fontWeight: 600,
                   ml:1,
               }} >
-                {chat.users[1].name}
+              {secondUser ? secondUser.name :<>deleted user</>}
               </Typography>
               
               </Box>
