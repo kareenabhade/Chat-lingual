@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import Divider from '@mui/material/Divider';
+import { getSender } from './ChatLogics';
 import { CircularProgress, Stack, Typography } from '@mui/material';
 import ChatLoading from './ChatLoading';
 import { ChatState } from '../../../Context/ChatProvider';
@@ -72,14 +73,13 @@ const MyChats = ({fetchAgain}) => {
     <Box sx={{width:"100%"}} >
       {chats?(
         <Stack  >
-          { loading?<CircularProgress sx={{ml:"40%", mt:"20%"}} />:
+          { loading?<CircularProgress sx={{position: 'relative', top: '50%',  left: '50%',}} />:
             chats.map((chat)=>{
-                      const secondUser = chat.users[1];
+                      // const secondUser = chat.users[1];
 
               return <Box
               onClick={()=>setSelectedChat(chat)}
               key={chat._id}
-              // backgroundColor={selectedChat?"#DDDDDD":"#F1EFEF"}
               sx={{
                 cursor:"pointer",
                 color:"#3D3B40",
@@ -98,7 +98,7 @@ const MyChats = ({fetchAgain}) => {
                   fontWeight: 600,
                   ml:1,
               }} >
-              {secondUser ? secondUser.name :<>deleted user</>}
+              {getSender(loggedUser, chat.users)||"deletedUser"}
               </Typography>
               
               </Box>

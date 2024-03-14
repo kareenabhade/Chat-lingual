@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useMediaQuery } from 'react-responsive'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import BasicMenu from './MenuButtons/BasicMenu';
@@ -8,6 +9,8 @@ import chatLogo from './chatLogo.png';
 
 
 export default function Navbar() {
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+
   return (
         <>
        <Box 
@@ -25,7 +28,11 @@ export default function Navbar() {
        <SideMenu />
 
         <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-        <img style={{height:"40px", width:"45px", marginRight:"10px"}} src={chatLogo}/>
+        <img style={{
+                   height: isTabletOrMobile ? "25px" : "40px",
+                   width: isTabletOrMobile ? "30px" : "45px",
+                   marginRight:"10px",
+                  }} src={chatLogo}/>
         <Typography
             variant="h6"
             sx={{
@@ -34,6 +41,7 @@ export default function Navbar() {
               fontFamily: 'Nunito',
               fontWeight: "bolder",
               color: 'black',
+              fontSize:{xs:'18px', md:"20px"},
               textDecoration: 'none',
             }}
           >
