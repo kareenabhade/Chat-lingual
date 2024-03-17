@@ -30,7 +30,7 @@ const ScrollableChat = ({messages}) => {
                 maxWidth: "max-content",
                 marginLeft:setMsgMargin(messages,m,i,user._id) || "15px",
             }
-           return <span style={messageStyle}>
+           return <span key={i} style={messageStyle}>
             {m.content}
             </span>
           

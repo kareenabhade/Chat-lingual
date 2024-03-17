@@ -26,10 +26,7 @@ export default function BasicMenu() {
     navigate("/");
   }
 
-  
-
   const {user} = ChatState();
-  console.log("USER"+user);
   return (
     <div>
       <Button sx={{backgroundColor:"#E0F4FF", display:"flex", justifyContent:'space-between'}}

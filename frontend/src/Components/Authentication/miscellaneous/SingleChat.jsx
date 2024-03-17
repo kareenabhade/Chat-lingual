@@ -10,11 +10,18 @@ import ProfileModal from './ProfileModal';
 import ScrollableChat from '../../ScrollableChat';
 import { getSender,getSenderFull } from './ChatLogics';
 
+import io from 'socket.io-client'; 
+
+const ENDPOINT = 'http://localhost:5000';
+var socket , selectedChatCompare;
+
+
 const SingleChat = ({fetchAgain, setFetchAgain}) => {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [newMessage, setNewMessage] = useState();
-
+    
+    const [socketConnected, setSocketConnected] = useState(false);
     const { user, selectedChat, setSelectedChat} = ChatState();
     console.log(selectedChat);
 
@@ -36,6 +43,8 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
       setMessages(data);
       setLoading(false);
 
+      socket.emit("join chat", selectedChat._id);
+
     } catch (error) {
       console.error(`Error: ${error.message}`);
             toast.error(`Error in fetching message - ${error.message} 😠`, {
@@ -54,8 +63,33 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
   }
 
   useEffect(()=>{
+    socket = io(ENDPOINT);
+    socket.emit('setup',user);
+    socket.on("connection",()=>setSocketConnected(true))
+  },[])
+
+    
+  useEffect(()=>{
     fetchMessages();
+    
+    selectedChatCompare = selectedChat;
+
   },[selectedChat])
+
+
+  useEffect(()=>{
+    socket.on('message recieved',(newMsgRecieved)=>{
+      if(!selectedChatCompare || selectedChatCompare._id !== newMsgRecieved.chat._id){
+        // notification
+      }
+      else{
+        setMessages([...messages,newMsgRecieved]);
+      }
+    })
+
+  })
+
+
 
   const sendMessage = async (e)=>{
       if(e.key === "Enter" && newMessage){
@@ -76,6 +110,8 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
                   );
                    
                    const data = await response.json();
+
+                   socket.emit('new message',data);
                    setMessages([...messages,data]);
 
         } catch (error) {
@@ -133,7 +169,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
         justifyContent: 'flex-end',
       }} >
 
-        {loading?<CircularProgress sx={{position: 'relative', top: '50%', left: '50%',}} />:<>
+        {loading?<CircularProgress size={80} sx={{p:"20px", position:"absolute", top:"50%", left:"50%"}}/>:<>
             <div>
               <ScrollableChat messages={messages} />
             </div>
