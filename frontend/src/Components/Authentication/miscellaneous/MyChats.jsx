@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import Divider from '@mui/material/Divider';
-import { getSender } from './ChatLogics';
-import { CircularProgress, Stack, Typography } from '@mui/material';
+import { getSender, getSenderPic } from './ChatLogics';
+import { CircularProgress, Stack, Typography, Avatar } from '@mui/material';
 import ChatLoading from './ChatLoading';
 import { ChatState } from '../../../Context/ChatProvider';
 import {Box } from '@mui/material';
@@ -11,7 +11,6 @@ const MyChats = ({fetchAgain}) => {
   const [loggedUser, setLoggedUser] = useState();
   const [loading, setLoading] = useState(false);
   const {user, chats, setChats, selectedChat, setSelectedChat} = ChatState();
-
   const fetchChats = async()=>{
     setLoading(true)
     try {
@@ -30,6 +29,7 @@ const MyChats = ({fetchAgain}) => {
      
      setLoading(false);
      setChats(data);
+     console.log("chats ",selectedChat)
     } 
     catch (error) {
        console.error(`Error: ${error.message}`);
@@ -51,6 +51,15 @@ const MyChats = ({fetchAgain}) => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")))
     fetchChats();
   },[fetchAgain])
+  
+
+  function letterToColor(letter) {
+     const hash = letter.charCodeAt(0) % 10;
+     const colors = [ '#145374' , '#8294C4' , '#064ACB' , '#EA5455' ,'#3E7C17' ,
+                      '#8F43EE' , '#FF4893' , '#8B9A46' , '#FF4B5C' , '#F07DEA' , ];
+     return colors[hash];
+  }
+
 
   return (
     <>
@@ -92,14 +101,29 @@ const MyChats = ({fetchAgain}) => {
                      backgroundColor: chat._id === selectedChat?._id ?'#D4E7C5':'#DDDDDD'
                   }, 
               }}>
-               
+
+              <div style={{
+                display:"flex",
+                alignItems:"center",
+                justifyContent:"start"
+              }} >
+
+              <div style={{ height: "25px", width: "25px", objectFit: 'cover', margin:"10px" }}>
+               <Avatar
+                  src={getSenderPic(loggedUser, chat.users)}
+                  alt={getSender(loggedUser, chat.users) || "deletedUser"}
+                  style={{ height: "100%", width: "100%", backgroundColor:letterToColor(getSender(loggedUser, chat.users) || "deletedUser") }}
+               />
+              </div>
               <Typography variant='h6' sx={{
                   fontFamily: "Hind Siliguri, sans-serif",
                   fontWeight: 600,
-                  ml:1,
+                  m:"5px 0px 0px 1px",
               }} >
               {getSender(loggedUser, chat.users)||"deletedUser"}
-              </Typography>
+              </Typography>  
+              </div> 
+              
               
               </Box>
             })

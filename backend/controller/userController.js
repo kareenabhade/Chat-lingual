@@ -46,6 +46,7 @@ const handleAuthUser = asyncHandler(async(req,res) => {
         name: existingUser.name,
         email: existingUser.email,
         password: existingUser.password,
+        pic:existingUser.pic,
         language: existingUser.language,
         token: generateToken(existingUser._id),
     })

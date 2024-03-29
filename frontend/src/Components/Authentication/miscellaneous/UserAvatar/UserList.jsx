@@ -7,13 +7,13 @@ const UserList = ({user, handleFunction}) => {
   return (
     <>
       <Box sx={{
-        m:"5px 20px",
+        m:"5px 8px",
         display:"flex",
         justifyContent:"left",
         alignItems:"center",
         backgroundColor:"#E1F0DA",
         borderRadius:"5px",
-        width:"100%",
+        width:"95%",
         height:"60px",
         cursor:"pointer",
         '&:hover': {
@@ -25,7 +25,7 @@ const UserList = ({user, handleFunction}) => {
         <Avatar alt={user.name} src={user.pic} sx={{m:"0px 15px", border:"solid black 1px", borderColor:"#163020"}} />
         <div style={{display:"flex", flexDirection:"column"}}>
         <Typography variant='h6'sx={{fontFamily:"Nunito", fontWeight:"700"}} >{user.name}</Typography>     
-        <Typography variant='h7'sx={{fontFamily:"Nunito", fontWeight:"700"}}>Email : {user.email}</Typography> 
+        <Typography variant='h7'sx={{fontFamily:"Nunito", fontWeight:"700"}}>{user.email}</Typography> 
         </div>   
         </Box>
     </>

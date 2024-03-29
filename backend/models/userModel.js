@@ -15,7 +15,7 @@ const userModel = mongoose.Schema({
         type:String, required:true, default:"English",
     },
     pic:{
-        type:String, default:"./userDefault.png",
+        type:String, default:"backend/models/userDefault.png",
     },
 },{
     timestamps:true,

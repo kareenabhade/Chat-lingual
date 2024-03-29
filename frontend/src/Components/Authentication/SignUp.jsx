@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
@@ -6,7 +6,6 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import MenuItem from '@mui/material/MenuItem';
-import { languages } from './languageData';
 import { ToastContainer, toast } from 'react-toastify';
 import { Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -25,6 +24,7 @@ const SignUp = () => {
   const [showConfirmPassword,setShowConfirmPassword] =  useState(false);
   const [language, setLanguage] = useState("");
   const [pic,setPic] = useState();
+  const [languageData, setLanguageData] = useState([]);
   const navigate = useNavigate();
 
 
@@ -121,9 +121,7 @@ function validatePassword(password) {
     language
   };
 
-  if (pic) {
-  data = { ...data, pic };
-}
+  if (pic) { data = { ...data, pic };  }
 
  
   try {
@@ -231,6 +229,28 @@ function validatePassword(password) {
 
   }
 
+  useEffect(()=>{
+
+    const fetchLanguage = async()=>{
+      try {
+          const headers = {
+            'accept':'application/json',
+          } 
+          const response = await fetch('https://libretranslate.com/languages', 
+                            {
+                              headers:headers,
+                            })
+          const languageData = await response.json();
+          setLanguageData(languageData);
+       } catch (error) {
+         console.log("errror in fetching language data : "+ error);
+       }
+    }
+
+    fetchLanguage();
+    
+  },[])
+
   return (
     <Stack spacing={2} >
         
@@ -322,9 +342,9 @@ function validatePassword(password) {
           sx={{m:2}}
           InputLabelProps={{style: {fontSize:"small"}}}    
         >
-          {languages.map((language,index) => (
+          {languageData.map((language,index) => (
             <MenuItem key={index} value={language.language_name} >
-              {language.language_name} 
+              {language.name} 
             </MenuItem>
           ))}
         </TextField>

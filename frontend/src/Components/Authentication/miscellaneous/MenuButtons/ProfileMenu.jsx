@@ -37,8 +37,14 @@ export default function BasicMenu() {
         onClick={handleClick}
       >
        
-      <Avatar alt={user.name} src={user.pic}
-                      sx={{ width: 24, height: 24 }} />
+       <Avatar alt={user.name}  src={user.pic}
+                  sx={{height:"25px",
+                       width:"25px",
+                       border:"solid 1px black",
+                       backgroundColor:"#5B5B5B"
+                      }}
+          /> 
+     
       <IoMdArrowDropdown />
 
       </Button>

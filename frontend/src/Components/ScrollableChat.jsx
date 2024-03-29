@@ -8,12 +8,15 @@ const ScrollableChat = ({messages}) => {
     const {user} = ChatState();
 
     console.log(messages);
+
+   
   return (
-    <ScrollableFeed sx={{
+    <ScrollableFeed 
+        sx={{
         display:"flex",
         flexDirection:"column",
-
-    }} >
+    }}
+     >
         {messages && messages.map((m,i)=>{
             const isSender = m.sender._id === user._id;
             console.log("isSender : "+isSender);
@@ -28,7 +31,7 @@ const ScrollableChat = ({messages}) => {
                 flexDirection:"column",
                 width: "fit-content", 
                 maxWidth: "max-content",
-                marginLeft:setMsgMargin(messages,m,i,user._id) || "15px",
+                marginLeft:setMsgMargin(messages,m,i,user._id),
             }
            return <span key={i} style={messageStyle}>
             {m.content}

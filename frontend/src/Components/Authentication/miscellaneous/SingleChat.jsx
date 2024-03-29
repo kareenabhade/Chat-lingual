@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import {Typography, Box, FormControl} from '@mui/material';
+import {Typography, Box, FormControl, Avatar} from '@mui/material';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { ChatState } from '../../../Context/ChatProvider';
 import Input from '@mui/material/Input';
@@ -8,7 +8,7 @@ import { Bounce } from 'react-toastify';
 import { CircularProgress } from '@mui/material';
 import ProfileModal from './ProfileModal';
 import ScrollableChat from '../../ScrollableChat';
-import { getSender,getSenderFull } from './ChatLogics';
+import { getSender,getSenderFull, getSenderPic } from './ChatLogics';
 
 import io from 'socket.io-client'; 
 
@@ -155,8 +155,10 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
                 margin:"15px",
                  }}  
         onClick={()=>{setSelectedChat("")}} />
-
-        <Typography sx={{ fontFamily:"Nunito", fontWeight:"500", marginLeft:"15px", fontSize:"30px"}} variant='h6' >{getSender(user, selectedChat.users)}</Typography>
+        <div style={{display:"flex"}} >
+        <Avatar sx={{m:"5px 0px 0px 10px", height:{xs:"25px", md:"33px"}, width:{xs:"25px", md:"33px"}, border:"double black 1px"}} src={getSenderPic(user, selectedChat.users)} />
+        <Typography sx={{ fontFamily:"Nunito", fontWeight:"500", marginLeft:"15px", fontSize:{md:"30px", xs:"25px"}}} variant='h6' >{getSender(user, selectedChat.users)}</Typography>
+        </div>
         <ProfileModal person={getSenderFull(user, selectedChat.users)} loginUser={false} />
       </Box>
       <Box sx={{
@@ -169,8 +171,8 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
         justifyContent: 'flex-end',
       }} >
 
-        {loading?<CircularProgress size={80} sx={{p:"20px", position:"absolute", top:"50%", left:"50%"}}/>:<>
-            <div>
+        {loading?<CircularProgress size={80} sx={{p:"10px", position:"absolute", top:"50%", left:"45%"}}/>:<>
+            <div style={{overflow:"auto"}} >
               <ScrollableChat messages={messages} />
             </div>
             </>}

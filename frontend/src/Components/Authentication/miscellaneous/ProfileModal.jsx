@@ -25,7 +25,7 @@ const style = {
 export default function ProfileModal({person, loginUser}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => setOpen(false); 
 
   return (
     <div>
@@ -46,15 +46,14 @@ export default function ProfileModal({person, loginUser}) {
             {person.name}
           </Typography>
 
-          <Avatar alt={person.name} src={person.pic} 
+          <Avatar alt={person.name}  src={person.pic ? person.pic :"backend/models/userDefault.png"}
                   sx={{height:"120px",
                        width:"120px",
                        margin:"20px 0px 20px",
-                       border:"solid 2px"
+                       border:"solid 2px black",
+                       backgroundColor:"#5B5B5B"
                       }}
-          />
-
-          
+          /> 
           <Typography id="modal-modal-description" variant="h6" sx={{ mt: 2 }}>
             {person.email}
           </Typography>
