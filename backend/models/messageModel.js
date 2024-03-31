@@ -9,6 +9,9 @@ const messageModel = mongoose.Schema({
         type:String,
         trim:true,
     },
+    translatedContent:{
+        type:String,
+    },
     chat:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Chat",        

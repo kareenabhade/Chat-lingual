@@ -57,6 +57,7 @@ export default function ProfileModal({person, loginUser}) {
           <Typography id="modal-modal-description" variant="h6" sx={{ mt: 2 }}>
             {person.email}
           </Typography>
+          <Typography sx={{ mt: 1 }}  >language : {person.language}</Typography>
         </Box>
       </Modal>
     </div>

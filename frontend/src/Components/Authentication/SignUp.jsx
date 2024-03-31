@@ -28,6 +28,17 @@ const SignUp = () => {
   const navigate = useNavigate();
 
 
+  const languages = [ "Auto", "Afrikaans", "Albanian", "Arabic", "Armenian", "Azerbaijani", 
+                    "Basque", "Belarusian", "Bulgarian", "Catalan", "Chinese (Simplified)", 
+                    "Chinese (Traditional)", "Croatian", "Czech", "Danish", "Dutch", 
+                    "English", "Estonian", "Filipino", "Finnish", "French", "Galician", 
+                    "Georgian", "German", "Greek", "Haitian Creole", "Hebrew", "Hindi", 
+                    "Hungarian", "Icelandic", "Indonesian", "Irish", "Italian", "Japanese", 
+                    "Korean", "Latvian", "Lithuanian", "Macedonian", "Malay", "Maltese", 
+                    "Norwegian", "Persian", "Polish", "Portuguese", "Romanian", "Russian", 
+                    "Serbian", "Slovak", "Slovenian", "Spanish", "Swahili", "Swedish", 
+                    "Thai", "Turkish", "Ukrainian", "Urdu", "Vietnamese", "Welsh", "Yiddish" ];
+
 
 const handleSubmit = async (event) => {
   event.preventDefault();
@@ -342,9 +353,9 @@ function validatePassword(password) {
           sx={{m:2}}
           InputLabelProps={{style: {fontSize:"small"}}}    
         >
-          {languageData.map((language,index) => (
-            <MenuItem key={index} value={language.language_name} >
-              {language.name} 
+          {languages.map((language,index) => (
+            <MenuItem key={index} value={language} >
+              {language} 
             </MenuItem>
           ))}
         </TextField>

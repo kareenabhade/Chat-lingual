@@ -17,7 +17,6 @@ const accessChat = asyncHandler(async(req,res)=>{
         ],
     }).populate("users", "-password").populate("latestMessage");
 
-    // Ensure this line is inside the async function
     isChat = await User.populate(isChat, {
         path:"latestMessage.sender",
         select: "name pic email",
