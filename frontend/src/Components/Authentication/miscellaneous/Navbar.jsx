@@ -29,8 +29,8 @@ export default function Navbar() {
 
         <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
         <img style={{
-                   height: isTabletOrMobile ? "25px" : "40px",
-                   width: isTabletOrMobile ? "30px" : "45px",
+                   height: isTabletOrMobile ? "25px" : "37px",
+                   width: isTabletOrMobile ? "30px" : "43px",
                    marginRight:"10px",
                   }} src={chatLogo}/>
         <Typography
@@ -41,7 +41,7 @@ export default function Navbar() {
               fontFamily: 'Nunito',
               fontWeight: "bolder",
               color: 'black',
-              fontSize:{xs:'18px', md:"20px"},
+              fontSize:{xs:'18px', md:"25px"},
               textDecoration: 'none',
             }}
           >

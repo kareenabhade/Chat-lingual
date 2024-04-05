@@ -16,7 +16,6 @@ const ScrollableChat = ({messages}) => {
     }}  >
         {messages && messages.map((m,i)=>{
             const isSender = m.sender._id === user._id;
-            console.log("isSender : ", isSender, m);
             const messageStyle = {
                 backgroundColor:`${isSender? "#85C88A":(originalMsg?"#FAEED1":"#6FB2D2") }`,
                 padding:"10px",

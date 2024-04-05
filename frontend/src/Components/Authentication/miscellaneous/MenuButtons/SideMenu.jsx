@@ -60,7 +60,6 @@ export default function TemporaryDrawer() {
     }
     const data = await response.json(); // Extract JSON from the response
     setLoading(false);
-    console.log(data);
     setSearchResult(data);
     }
      catch (error) {

@@ -22,8 +22,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
     const [newMessage, setNewMessage] = useState();
     
     const [socketConnected, setSocketConnected] = useState(false);
-    const { user, selectedChat, setSelectedChat} = ChatState();
-    console.log(selectedChat);
+    const { user, selectedChat, setSelectedChat, notification , setNotification} = ChatState();
 
   const fetchMessages = async()=>{
     if(!selectedChat) return;
@@ -38,8 +37,6 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
       const response = await fetch(`/api/messages/${selectedChat._id}`, config);
       const data = await response.json();
       
-
-      console.log(messages);
       setMessages(data);
       setLoading(false);
 
@@ -75,12 +72,17 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
     selectedChatCompare = selectedChat;
 
   },[selectedChat])
+  
 
 
   useEffect(()=>{
     socket.on('message recieved',(newMsgRecieved)=>{
       if(!selectedChatCompare || selectedChatCompare._id !== newMsgRecieved.chat._id){
         // notification
+        if(!notification.includes(newMsgRecieved)){
+          setNotification([newMsgRecieved, ...notification]);
+          setFetchAgain(!fetchAgain);
+        }
       }
       else{
         setMessages([...messages,newMsgRecieved]);
@@ -157,7 +159,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
         onClick={()=>{setSelectedChat("")}} />
         <div style={{display:"flex"}} >
         <Avatar sx={{m:"5px 0px 0px 10px", height:{xs:"25px", md:"33px"}, width:{xs:"25px", md:"33px"}, border:"double black 1px"}} src={getSenderPic(user, selectedChat.users)} />
-        <Typography sx={{ fontFamily:"Nunito", fontWeight:"500", marginLeft:"15px", fontSize:{md:"30px", xs:"25px"}}} variant='h6' >{getSender(user, selectedChat.users)}</Typography>
+        <Typography sx={{ fontFamily:"Nunito", fontWeight:"500", marginLeft:"15px", marginTop:"5px" , fontSize:{md:"25px", xs:"20px"}}} variant='h6' >{getSender(user, selectedChat.users)}</Typography>
         </div>
         <ProfileModal person={getSenderFull(user, selectedChat.users)} loginUser={false} />
       </Box>

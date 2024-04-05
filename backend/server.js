@@ -22,7 +22,7 @@ app.use('/api/messages', messageRoutes);
 const server = app.listen(PORT,()=>console.log(`server started at port : ${PORT}`));
 
 const io = require('socket.io')(server,{
-    pingTimeout: 60000,
+    pingTimeout: 120000,
     cors:{
         origin:"http://localhost:3000",
     },

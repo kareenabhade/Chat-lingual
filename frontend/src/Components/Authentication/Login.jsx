@@ -22,12 +22,12 @@ const Login = () => {
     return regex.test(String(email).toLowerCase());
   };
 
-function validatePassword(password) { 
-  const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-
-  if (passwordPattern.test(password)) return true;
-   return false;
-}
+  function validatePassword(password) { 
+    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  
+    if (passwordPattern.test(password)) return true;
+     return false;
+  }
 
 
    const handleSubmit = async(event)=>{

@@ -18,7 +18,6 @@ const sendMessage= asyncHandler(async(req,res)=>{
     function languageCode(language) {
     // Correctly return the result of the comparison
     const languageObj = languages.find((data) => data.name === language);
-    console.log(languageObj);
     if (languageObj) {
         return languageObj.code;
     } else {
@@ -29,7 +28,6 @@ const sendMessage= asyncHandler(async(req,res)=>{
 
         try {
         const inputLanguage = languageCode(senderLanguage), outputLanguage = languageCode(receiverLanguage);
-        console.log(inputLanguage, outputLanguage);
         const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(
           content
         )}`;

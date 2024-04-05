@@ -10,7 +10,8 @@ import {Box } from '@mui/material';
 const MyChats = ({fetchAgain}) => {
   const [loggedUser, setLoggedUser] = useState();
   const [loading, setLoading] = useState(false);
-  const {user, chats, setChats, selectedChat, setSelectedChat} = ChatState();
+  const {user, chats, setChats, selectedChat, setSelectedChat, notification, setNotification} = ChatState();
+
   const fetchChats = async()=>{
     setLoading(true)
     try {
@@ -25,11 +26,9 @@ const MyChats = ({fetchAgain}) => {
         throw new Error('error in fetching chats')
       }
      const data = await response.json();
-     console.log('Parsed data:', data);
      
      setLoading(false);
      setChats(data);
-     console.log("chats ",selectedChat)
     } 
     catch (error) {
        console.error(`Error: ${error.message}`);
@@ -60,6 +59,10 @@ const MyChats = ({fetchAgain}) => {
      return colors[hash];
   }
 
+  if (!loggedUser || !chats) {
+    return <ChatLoading />; 
+  }
+
 
   return (
     <>
@@ -87,7 +90,9 @@ const MyChats = ({fetchAgain}) => {
                       // const secondUser = chat.users[1];
 
               return <Box
-              onClick={()=>setSelectedChat(chat)}
+              onClick={()=>{setSelectedChat(chat)
+                            const updatedNotifications = notification.filter(notif => notif.chat._id !== chat._id);
+                            setNotification(updatedNotifications);      }}
               key={chat._id}
               sx={{
                 cursor:"pointer",
@@ -115,6 +120,8 @@ const MyChats = ({fetchAgain}) => {
                   style={{ height: "100%", width: "100%", backgroundColor:letterToColor(getSender(loggedUser, chat.users) || "deletedUser") }}
                />
               </div>
+
+              <div style={{display:"flex", flexDirection:"column"}} >
               <Typography variant='h6' sx={{
                   fontFamily: "Hind Siliguri, sans-serif",
                   fontWeight: 600,
@@ -122,6 +129,7 @@ const MyChats = ({fetchAgain}) => {
               }} >
               {getSender(loggedUser, chat.users)||"deletedUser"}
               </Typography>  
+              </div>
               </div> 
               
               
