@@ -22,8 +22,12 @@ This application provides users with the following features
 
 
 ## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Screenshot 2024-04-02 192312](https://github.com/kareenabhade/Chat-lingual/assets/104439352/c340a598-56ba-4e7d-b14a-5f76ff81e27b)
+![Screenshot 2024-04-02 192327](https://github.com/kareenabhade/Chat-lingual/assets/104439352/dbc84142-bb59-45f5-b973-5d7e997324ad)
+![Screenshot 2024-04-02 192427](https://github.com/kareenabhade/Chat-lingual/assets/104439352/10e796d4-faeb-4fe5-893b-39d98a0f428f)
+![Screenshot 2024-04-02 192518](https://github.com/kareenabhade/Chat-lingual/assets/104439352/98982e35-6525-4dbe-95e3-d0053779c86e)
+![Screenshot 2024-04-02 192549](https://github.com/kareenabhade/Chat-lingual/assets/104439352/107bac4f-136d-4555-ab88-cb498d954751)
+![Screenshot 2024-04-17 174310](https://github.com/kareenabhade/Chat-lingual/assets/104439352/e3bd42d5-8810-4f38-a946-fe2d7ff8b17c)
 
 
 ## API used
