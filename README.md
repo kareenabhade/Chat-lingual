@@ -33,7 +33,9 @@ This application provides users with the following features
 ## API used
 
 https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(content)}
-## Demo
+## Project Demo
+See it in action! 
 
-Insert gif or link to demo
+https://github.com/kareenabhade/Chat-lingual/assets/104439352/58d0a5e8-7422-41a6-9ea0-5bb8d74adc00
 
+Cheers 💻 🍺 🔥 🙌
